@@ -162,15 +162,17 @@ FICS_CreateICS($)
           if ($from ne $to) {
             # The historic date 2011-04-04 was a monday. We want the date to start
             # on the correct day, so add a weekday offset to the day
-            my $daynum = 4 + $offset;
+            my $baseyear = 2011;
+            my $basemonth = 3;
+            my $daynum = 21 + $offset;
 
             # Put together the event
             # TODO escaping, line wrapping, etc.
             $ics .= "\n" . join("\n",
               ("BEGIN:VEVENT",
                "UID:fhem-$name-$wkday-$period",
-               "DTSTART:" . sprintf("%04d%02d%02dT%04d00", 2011, 4, $daynum, $from),
-               "DTEND:" . sprintf("%04d%02d%02dT%04d00", 2011, 4, $daynum, $to),
+               "DTSTART:" . sprintf("%04d%02d%02dT%04d00", $baseyear, $basemonth, $daynum, $from),
+               "DTEND:" . sprintf("%04d%02d%02dT%04d00", $baseyear, $basemonth, $daynum, $to),
                "SUMMARY:" . $name,
                "LOCATION:" . $room,
                "RRULE:FREQ=WEEKLY",
